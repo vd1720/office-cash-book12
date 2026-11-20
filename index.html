@@ -148,7 +148,7 @@ h2{font-size:16px;font-weight:700;display:flex;justify-content:space-between;ali
 .pgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;align-items:stretch}
 .pgrid+.pgrid{margin-top:18px}
 .stackc{display:flex;flex-direction:column;gap:18px}
-.mycash{display:flex;flex-direction:column;justify-content:center;gap:26px}
+.mycash{display:flex;flex-direction:column;justify-content:flex-start;gap:22px}.pgrid.home{align-items:start}
 .huge{font-size:64px;font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin:6px 0 4px}
 .trio.four{grid-template-columns:repeat(4,1fr);border-bottom:0;padding-bottom:0}
 .tb .r{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
@@ -310,6 +310,7 @@ html.locked,html.locked body{overflow:hidden}
   .cards,.cards.c2,.grid2,.tgrid{grid-template-columns:1fr!important}
   .kpi4{grid-template-columns:1fr 1fr;gap:10px}
   .box{order:-1}.home .box{order:0}
+  .home{display:flex!important;flex-direction:column;gap:18px}.home .colL,.home .colR{display:contents}.home .mycash{order:1}.home .box{order:2}.home .colL>.card:nth-child(2){order:3}.home .colR>.card:nth-child(2){order:4}.home .tb{order:5}
   .pgrid,.trio.four{grid-template-columns:1fr 1fr}.pgrid{grid-template-columns:1fr}.huge{font-size:44px}
   .big{font-size:30px}.kpi4 .big{font-size:22px}
   .card{padding:18px}
@@ -386,8 +387,7 @@ html.locked,html.locked body{overflow:hidden}
 <div id="root"><div class="loading">Loading the cash book…</div></div>
 <div id="layer"></div>
 <div id="toast" class="toast" hidden role="status"></div>
-<script>window.CASHBOOK_DEMO=true</script>
-<script>
+<script>window.CASHBOOK_DEMO=true</script><script>
 (function () {
 "use strict";
 /* ---------- constants ---------- */
@@ -646,8 +646,7 @@ function balancesCard() {
 function homeHTML() {
   return '<div class="ph"><div><h1>' + greet() + ", " + esc(first(me.name)) + '</h1><p class="sub">Your cash at a glance · ' + new Date().toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short", year: "numeric" }) + "</p></div>" +
     '<button class="btn ghost" data-act="copycsv" data-scope="month">' + I("copy") + " Copy my month</button></div>" +
-    '<section class="pgrid home">' + myCard() + boxCard() + "</section>" +
-    '<section class="pgrid">' + recentCard() + '<div class="stackc">' + catsHTML() + balancesCard() + "</div></section>";
+    '<section class="pgrid home"><div class="stackc colL">' + myCard() + recentCard() + '</div><div class="stackc colR">' + boxCard() + catsHTML() + balancesCard() + "</div></section>";
 }
 function overviewHTML() {
   if (!isAdmin()) return homeHTML();
